@@ -48,7 +48,27 @@ const server = http.createServer((req, res) => {
         },
       );
     }
-  } 
+  } else if (req.method === "POST" && req.url === "/api/books") {
+    let book = "";
+    const bookID = db.books.length ? db.books.length + 1 : 1;
+    req.on("data", (data) => {
+      book = book + data.toString();
+    });
+    req.on("end", () => {
+      const newBook = { id: bookID, ...JSON.parse(book), free: 1 };
+
+      db.books.push(newBook);
+
+      fs.writeFile("db.json", JSON.stringify(db), (err) => {
+        if (err) {
+          throw err;
+        }
+        res.writeHead(201, { "content-type": "application/json" });
+        res.write(JSON.stringify({ message: "Add new Book is successfuly" }));
+        res.end();
+      });
+    });
+  }
 });
 
 server.listen(4000, () => {
