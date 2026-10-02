@@ -97,6 +97,32 @@ const server = http.createServer((req, res) => {
         res.end();
       });
     });
+  } else if (req.method === "POST" && req.url === "/api/users") {
+    let addUser = "";
+    req.on("data", (data) => {
+      addUser = addUser + data.toString();
+    });
+
+    req.on("end", () => {
+      const { name, username, role } = JSON.parse(addUser);
+      const userID = db.users.length ? db.users.length + 1 : 1;
+      const objectUser = {
+        id: userID,
+        name,
+        username,
+        role,
+        crime: 0,
+      };
+      db.users.push(objectUser);
+      fs.writeFile("./db.json", JSON.stringify(db), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      res.writeHead(201, { "Content-Type": "application/json" });
+      res.write(JSON.stringify({ message: "add new user" }));
+      res.end();
+    });
   }
 });
 
