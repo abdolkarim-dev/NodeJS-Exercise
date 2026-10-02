@@ -1,0 +1,115 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "karim",
+            "username": "bazdar007",
+            "crime": 0,
+            "role": "Admin"
+        },
+        {
+            "id": 2,
+            "name": "kamran",
+            "username": "ladani007",
+            "crime": 0,
+            "role": "USER"
+        },
+        {
+            "id": 3,
+            "name": "mohammd",
+            "username": "karimi007",
+            "crime": 0,
+            "role": "USER"
+        },
+        {
+            "id": 4,
+            "name": "ali",
+            "username": "alipur5553",
+            "crime": 0,
+            "role": "USER"
+        },
+        {
+            "id": 5,
+            "name": "ali",
+            "username": "alipur5553",
+            "crime": 0,
+            "role": "USER"
+        },
+        {
+            "id": 6,
+            "name": "ali",
+            "username": "alipur5553",
+            "crime": 0,
+            "role": "ADMIN"
+        },
+        {
+            "name": "aliaaa",
+            "username": "sdasdw",
+            "role": "Admin",
+            "crime": 0
+        },
+        {
+            "id": 8,
+            "name": "aliaaa",
+            "username": "sdasdw",
+            "role": "Admin",
+            "crime": 0
+        },
+        {
+            "id": 9,
+            "name": "mohammaddddd",
+            "username": "sdasdw",
+            "role": "Admin",
+            "crime": 0
+        }
+    ],
+    "books": [
+        {
+            "id": 1,
+            "name": "Abdolkarim",
+            "free": 1,
+            "price": 8787987
+        },
+        {
+            "id": 2,
+            "name": "Abdolkarim",
+            "free": 1
+        },
+        {
+            "id": 3,
+            "name": "Abdolkarim",
+            "free": 1,
+            "price": 8787987
+        },
+        {
+            "id": 4,
+            "name": "ASDSAD4444",
+            "free": 1,
+            "price": 887866
+        },
+        {
+            "id": 5,
+            "name": "ASDSAD4444",
+            "price": 887866,
+            "free": 1
+        },
+        {
+            "id": 6,
+            "name": "ASDSAD4444",
+            "price": 887866,
+            "free": 1
+        },
+        {
+            "id": 7,
+            "name": "ASDSAD4444",
+            "price": 887866,
+            "free": 1
+        },
+        {
+            "id": 8,
+            "name": "ASDSAD4444",
+            "price": 887866,
+            "free": 1
+        }
+    ]
+}
