@@ -5,6 +5,7 @@
             "name": "karim",
             "username": "bazdar007",
             "crime": 1,
+            "email": "test@gmail.com",
             "role": "Admin"
         },
         {
@@ -12,6 +13,7 @@
             "name": "kamran",
             "username": "ladani007",
             "crime": 4445777,
+            "email": "test@gmail.com",
             "role": "USER"
         },
         {
@@ -19,6 +21,7 @@
             "name": "mohammd",
             "username": "karimi007",
             "crime": 0,
+            "email": "test@gmail.com",
             "role": "USER"
         },
         {
@@ -26,6 +29,7 @@
             "name": "ali",
             "username": "alipur5553",
             "crime": 0,
+            "email": "test@gmail.com",
             "role": "USER"
         },
         {
@@ -33,6 +37,7 @@
             "name": "ali",
             "username": "alipur5553",
             "crime": 0,
+            "email": "test@gmail.com",
             "role": "USER"
         },
         {
@@ -40,26 +45,15 @@
             "name": "ali",
             "username": "alipur5553",
             "crime": 0,
+            "email": "test@gmail.com",
             "role": "ADMIN"
         },
         {
-            "name": "aliaaa",
-            "username": "sdasdw",
+            "id": 7,
+            "name": "saeed",
+            "username": "ssssr007",
             "role": "Admin",
-            "crime": 0
-        },
-        {
-            "id": 8,
-            "name": "aliaaa",
-            "username": "sdasdw",
-            "role": "Admin",
-            "crime": 0
-        },
-        {
-            "id": 9,
-            "name": "mohammaddddd",
-            "username": "sdasdw",
-            "role": "Admin",
+            "email": "ssss@gmail.com",
             "crime": 0
         }
     ],
