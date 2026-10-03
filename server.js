@@ -140,6 +140,25 @@ const server = http.createServer((req, res) => {
         res.end();
       }
     });
+  } else if (req.method === "PUT" && req.url.startsWith("/api/users/upgrade")) {
+    const parsedUrl = url.parse(req.url, true);
+    const userID = parsedUrl.query.id;
+
+    db.users.forEach((user) => {
+      if (user.id === Number(userID)) {
+        user.role = "ADMIN";
+      }
+    });
+
+    fs.writeFile("./db.json", JSON.stringify(db), (err) => {
+      if (err) {
+        throw err;
+      }
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.write(JSON.stringify({ message: "User Upgraded Successfully" }));
+      res.end();
+    });
   } else if (req.method === "PUT" && req.url.startsWith("/api/users")) {
     const paramter = url.parse(req.url, true);
     const getID = paramter.query.id;
