@@ -123,6 +123,32 @@ const server = http.createServer((req, res) => {
       res.write(JSON.stringify({ message: "add new user" }));
       res.end();
     });
+  } else if (req.method === "PUT" && req.url.startsWith("/api/users")) {
+    const paramter = url.parse(req.url, true);
+    const getID = paramter.query.id;
+
+    let updateCrime = "";
+
+    req.on("data", (data) => {
+      updateCrime = updateCrime + data.toString();
+    });
+
+    req.on("end", () => {
+      const { crime } = JSON.parse(updateCrime);
+      db.users.forEach((user) => {
+        if (user.id === Number(getID)) {
+          user.crime = crime;
+        }
+      });
+      fs.writeFile("./db.json", JSON.stringify(db), (err) => {
+        if (err) {
+          throw err;
+        }
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.write(JSON.stringify({ message: "update users crime" }));
+        res.end();
+      });
+    });
   }
 });
 
