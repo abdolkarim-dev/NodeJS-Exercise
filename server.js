@@ -214,6 +214,50 @@ const server = http.createServer((req, res) => {
         res.end();
       }
     });
+  } else if (req.method === "POST" && req.url === "/api/books/rent") {
+    let reqBody = "";
+
+    req.on("data", (data) => {
+      reqBody = reqBody + data.toString();
+    });
+
+    req.on("end", () => {
+      let { userID, bookID } = JSON.parse(reqBody);
+
+      const isFreeBook = db.books.some(
+        (book) => book.id === Number(bookID) && book.free === 1,
+      );
+
+      if (isFreeBook) {
+        db.books.forEach((book) => {
+          if (book.id === Number(bookID)) {
+            book.free = 0;
+          }
+        });
+
+        const newRent = {
+          id: crypto.randomUUID(),
+          userID,
+          bookID,
+        };
+
+        db.rents.push(newRent);
+
+        fs.writeFile("./db.json", JSON.stringify(db), (err) => {
+          if (err) {
+            throw err;
+          }
+
+          res.writeHead(201, { "Content-Type": "application/json" });
+          res.write(JSON.stringify({ message: "Book Reserved Successfully" }));
+          res.end();
+        });
+      } else {
+        res.writeHead(401, { "Content-Type": "application/json" });
+        res.write(JSON.stringify({ message: "This book is not free" }));
+        res.end();
+      }
+    });
   }
 });
 
