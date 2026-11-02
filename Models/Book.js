@@ -1,6 +1,6 @@
 const db = require("../db.json");
 const fs = require("fs");
-
+const url = require('url')
 const find = () => {
   return new Promise((resolve, reject) => {
     resolve(db.books);
@@ -48,8 +48,41 @@ const addBookModel = (req, res) => {
     });
   });
 };
+
+const updateBookModel = (req, res) => {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = url.parse(req.url, true);
+    const bookID = parsedUrl.query.id;
+
+    let bookUpdate = "";
+
+    req.on("data", (data) => {
+      bookUpdate = bookUpdate + data.toString();
+    });
+
+    req.on("end", () => {
+      const reqBody = JSON.parse(bookUpdate);
+
+      db.books.forEach((book) => {
+        if (book.id === Number(bookID)) {
+          book.name = reqBody.name;
+          book.price = reqBody.price;
+        }
+      });
+
+      fs.writeFile("./db.json", JSON.stringify(db), (err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve({ message: "Book Updated Successfully" });
+      });
+    });
+  });
+};
+
 module.exports = {
   find,
   remove,
   addBookModel,
+  updateBookModel,
 };

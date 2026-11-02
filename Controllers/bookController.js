@@ -24,8 +24,17 @@ const addBookOne = async (req, res) => {
   res.write(JSON.stringify(addBook));
   res.end();
 };
+
+const updateBookOne = async (req, res) => {
+  const UpdateBook = await BookModel.updateBookModel(req, res);
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.write(JSON.stringify(UpdateBook));
+  res.end();
+};
+
 module.exports = {
   getAll,
   removeOne,
   addBookOne,
+  updateBookOne,
 };

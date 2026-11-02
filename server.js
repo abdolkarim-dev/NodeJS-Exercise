@@ -24,34 +24,7 @@ const server = http.createServer((req, res) => {
   } else if (req.method === "POST" && req.url === "/api/books") {
     bookController.addBookOne(req, res);
   } else if (req.method === "PUT" && req.url.startsWith("/api/books")) {
-    const parsedUrl = url.parse(req.url, true);
-    const bookID = parsedUrl.query.id;
-
-    let bookUpdate = "";
-
-    req.on("data", (data) => {
-      bookUpdate = bookUpdate + data.toString();
-    });
-
-    req.on("end", () => {
-      const reqBody = JSON.parse(bookUpdate);
-
-      db.books.forEach((book) => {
-        if (book.id === Number(bookID)) {
-          book.name = reqBody.name;
-          book.price = reqBody.price;
-        }
-      });
-
-      fs.writeFile("./db.json", JSON.stringify(db), (err) => {
-        if (err) {
-          throw err;
-        }
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.write(JSON.stringify({ message: "Book Updated Successfully" }));
-        res.end();
-      });
-    });
+    bookController.updateBookOne(req, res);
   } else if (req.method === "POST" && req.url === "/api/users") {
     let addUser = "";
     req.on("data", (data) => {
