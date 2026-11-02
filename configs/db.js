@@ -9,5 +9,24 @@ const main = async () => {
   console.log("Connection To DBConnection Successfuly");
 
   const db = dbConnection.db(dbName);
-  return "Done"
+
+  //   const usersCollection = db.collection("users");
+  //   usersCollection.insertOne({
+  //     name: "karim",
+  //     username: "bazdar007",
+  //     crime: 1,
+  //     email: "test@gmail.com",
+  //     role: "Admin",
+  //   });
+
+  const booksColection = db.collection("books");
+  booksColection.insertOne({
+    id: 1,
+    name: "Abdolkarim",
+    free: 1,
+    price: 8787987,
+  });
+  return "Done";
 };
+
+main();
