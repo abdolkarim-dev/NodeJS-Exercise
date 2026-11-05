@@ -1,47 +1,29 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-const url = "mongodb://localhost:27017";
-const dbConnection = new MongoClient(process.env.dbConnecltionUrl);
+const dbConnection = new MongoClient(process.env.dbConnectionUrl);
 const dbName = process.env.dbName;
 
 const main = async () => {
   await dbConnection.connect();
-  console.log("Connection To DBConnection Successfuly");
+
+  console.log("Connection To DB Successful");
 
   const db = dbConnection.db(dbName);
+  const usersCollection = db.collection("users");
 
-  //   const usersCollection = db.collection("users");
-  //   usersCollection.insertOne({
-  //     name: "karim",
-  //     username: "bazdar007",
-  //     crime: 1,
-  //     email: "test@gmail.com",
-  //     role: "Admin",
-  //   });
+  const result = await usersCollection.insertOne({
+    name: "karim1",
+    username: "bazdar007",
+    crime: 1,
+    email: "test@gmail.com",
+    role: "Admin",
+    tags: ["nodejs", "reactjs", "vuejs"],
+  });
 
-  //   const booksColection = db.collection("books");
-  //   booksColection.insertOne({
-  //     id: 1,
-  //     name: "Abdolkarim",
-  //     free: 1,
-  //     price: 8787987,
-  //   });
-
-  // const rentsCollection = db.collection("rents");
-  // const result = await rentsCollection.insertMany([
-  //   { userID: 1, bookID: 1 },
-  //   {
-  //     userID: "fc9b7cd0-173c-4f5f-9bc8-ec9c062d7379",
-  //     bookID: 2,
-  //   },
-  // ]);
-
-  const bookCallection = db.collection('books')
-  const result = await bookCallection.find({}).toArray()
-  console.log(result);
-
-  return "Done";
+  console.log("Inserted ID:", result.insertedId);
 };
 
-main().catch(console.error);
+main()
+  .catch(console.error)
+  .finally(() => dbConnection.close());
