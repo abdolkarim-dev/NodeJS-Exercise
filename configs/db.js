@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 require("dotenv").config();
 
 const dbConnection = new MongoClient(process.env.dbConnectionUrl);
@@ -10,18 +10,46 @@ const main = async () => {
   console.log("Connection To DB Successful");
 
   const db = dbConnection.db(dbName);
+
   const usersCollection = db.collection("users");
 
-  const result = await usersCollection.insertOne({
-    name: "karim1",
-    username: "bazdar007",
-    crime: 1,
-    email: "test@gmail.com",
-    role: "Admin",
-    tags: ["nodejs", "reactjs", "vuejs"],
-  });
+  const result = await usersCollection.updateMany(
+    {
+      updatedAt: { $exists: false },
+    },
+    { $set: { updatedAt: new Date() } },
+  );
+  console.log(result);
 
-  console.log("Inserted ID:", result.insertedId);
+  // const result = await usersCollection.updateOne(
+  //   {
+  //     _id: new ObjectId("6aec64ae4037cb0daf56c6da"),
+  //   },
+  //   { $set: { tags: ["frontend", "backend"] } },
+  // );
+  // console.log(result);
+
+  // const result = await usersCollection
+  //   .find({
+  //     tags: { $all:["nodejs"] },
+  //   })
+  //   .toArray();
+
+  // console.log(result);
+
+  // const result = await usersCollection
+  //   .find({
+  //     tags: { $exists: true },
+  //   })
+  //   .toArray();
+
+  // console.log(result);
+
+  // const result = await usersCollection.find
+  // ({
+  //   tags:"nodejs"
+  // }).toArray()
+  // console.log(result);
 };
 
 main()
